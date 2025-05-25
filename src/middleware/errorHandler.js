@@ -20,6 +20,14 @@ function errorHandler (err, req, res, next) {
                 });
         }
 
+    if (err.name === 'MulterError') {
+        return res.status(400).json({ error: `Upload error: ${err.message}` });
+    }
+
+    if (err.message && err.message.includes('Only images are allowed')) {
+        return res.status(400).json({ error: err.message });
+    }
+
     console.error(err.stack);
     res.status(500).json({error:'Internal Server Error'});
 }
