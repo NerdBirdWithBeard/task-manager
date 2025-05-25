@@ -11,10 +11,9 @@ exports.getTasks = asyncHandler(async (req, res) => {
 });
 
 exports.getTask = asyncHandler(async (req, res) => {
-    const filter = req.query;
+    const filter = req.params;
     filter.userId = req.user.userId;
     sendNormalized(res, await taskService.getTask(filter), 'Success', 404, 'Task not found');
-
 });
     
 exports.createTask = asyncHandler(async (req, res) => {
@@ -33,7 +32,7 @@ exports.updateTask = asyncHandler(async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(422).json({errors: errors.array()})
     }
-    const filter = req.query;
+    const filter = req.params;
     const data = req.body;
     data.dueDate = new Date(data.dueDate);
     data.userId = req.user.userId;
@@ -46,15 +45,13 @@ exports.updateTask = asyncHandler(async (req, res) => {
 });
 
 exports.deleteTask = asyncHandler(async (req, res) => {
-    const { id } = req.query;
-    const filter = req.query;
+    const { id } = req.params;
+    const filter = req.params;
     filter.userId = req.user.userId;
-    if (id) {
-        sendNormalized(res, await taskService.deleteTask(filter), 'Task successfully deleted',
-            404,
-            'Task not found'
-        );
-    } else {
-        res.status(400).json({message: 'Nothing to delete'})
-    }
+    sendNormalized(res,
+        await taskService.deleteTask(filter),
+        'Task successfully deleted',
+        404,
+        'Task not found'
+    );
 });
