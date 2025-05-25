@@ -1,17 +1,15 @@
 // const multer = require('../lib/multer');
 const multer = require('multer');
-const path = require('path');
 const storage = require('../utils/diskStorage');
 
-const fileFilter = (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png/;
-    const mime = allowedTypes.test(file.mimetype);
-    const ext = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+const fileFilter = (req, file, callback) => {
 
-    if (mime && ext) {
-        return cb(null, true);
+    const allowedMimeTypes = ['image/bmp', 'image/gif', 'image/jpeg', 'image/png'];
+
+    if (allowedMimeTypes.includes(file.mimetype)) {
+        return callback(null, true);
     }
-    cb(new Error('Only images are allowed'));
+    callback(new Error('Only images are allowed'));
 };
 
 const upload = multer({storage, fileFilter});
