@@ -1,11 +1,9 @@
-const fs = require('fs');
 const app = require('./app');
 const gracefulShutdown = require('./utils/gracefulShutdown');
+const initUploadsDirs = require('./utils/initUploadsDirs');
 const port = process.env.PORT;
 
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads');
-}
+initUploadsDirs();
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
