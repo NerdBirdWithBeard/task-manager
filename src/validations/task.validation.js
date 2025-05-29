@@ -30,6 +30,7 @@ exports.createTaskValidation = [
 
 exports.updateTaskValidation = [
     body('title')
+        .optional()
         .trim()
         .notEmpty().withMessage('Title is required')
         .isLength({max: 100}).withMessage('The title must not exceed 100 characters.'),
@@ -52,6 +53,7 @@ exports.updateTaskValidation = [
         .isIn(['todo', 'in_progress', 'done']).withMessage('Status must be: todo, in_progress or done'),
 
     body('projectId')
+        .optional()
         .notEmpty().withMessage('projectId is required')
         .isUUID().withMessage('projectId must be in UUID format'),
 ];
