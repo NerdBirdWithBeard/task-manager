@@ -2,7 +2,7 @@ const express = require('express');
 
 const authRoutes = require('./routes/auth.routes');
 const tasksRoutes = require('./routes/tasks.routes');
-const projectRoutes = require('./routes/project.routes');
+const projectRoutes = require('./routes/projects.routes');
 const uploadRoutes = require('./routes/upload.routes');
 
 const logger = require('./middleware/logger');
