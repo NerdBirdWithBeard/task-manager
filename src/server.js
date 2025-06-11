@@ -2,6 +2,7 @@ const app = require('./app');
 const gracefulShutdown = require('./utils/gracefulShutdown');
 const initUploadsDirs = require('./utils/initUploadsDirs');
 const port = process.env.PORT;
+require('dotenv').config();
 
 initUploadsDirs();
 
